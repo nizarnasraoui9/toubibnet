@@ -1,13 +1,13 @@
 package com.toubibnet.toubibnet.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -18,4 +18,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
+    @ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL)
+    @JsonIgnore
+    List<User> users=new ArrayList<>();
 }
