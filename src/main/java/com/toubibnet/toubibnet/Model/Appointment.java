@@ -12,14 +12,13 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 public class Appointment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    @EmbeddedId
+    AppointmentId appointmentId;
     Date date;
     @ManyToOne
-    @JoinColumn(name="doctor_id",referencedColumnName = "id")
+    @MapsId("doctorId")
     Doctor doctor;
     @ManyToOne
-    @JoinColumn(name="user_id",referencedColumnName="id")
+    @MapsId("userId")
     User user;
 }
