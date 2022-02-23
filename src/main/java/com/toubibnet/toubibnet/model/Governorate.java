@@ -1,5 +1,5 @@
 package com.toubibnet.toubibnet.model;
 
-public enum Governotate {
+public enum Governorate {
     Tunis,Bizerte
 }
