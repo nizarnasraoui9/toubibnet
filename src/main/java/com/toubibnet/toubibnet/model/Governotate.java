@@ -1,4 +1,4 @@
-package com.toubibnet.toubibnet.Model;
+package com.toubibnet.toubibnet.model;
 
 public enum Governotate {
     Tunis,Bizerte

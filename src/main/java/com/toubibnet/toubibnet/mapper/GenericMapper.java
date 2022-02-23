@@ -1,4 +1,4 @@
-package com.toubibnet.toubibnet.Mapper;
+package com.toubibnet.toubibnet.mapper;
 
 import org.mapstruct.MapperConfig;
 import org.mapstruct.MappingTarget;

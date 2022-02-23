@@ -1,13 +1,11 @@
-package com.toubibnet.toubibnet.Dto;
+package com.toubibnet.toubibnet.dto;
 
-import com.toubibnet.toubibnet.Model.Appointment;
-import com.toubibnet.toubibnet.Model.Question;
+import com.toubibnet.toubibnet.model.Appointment;
+import com.toubibnet.toubibnet.model.Question;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 

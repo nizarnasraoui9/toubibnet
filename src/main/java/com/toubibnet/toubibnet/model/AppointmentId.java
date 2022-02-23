@@ -1,6 +1,4 @@
-package com.toubibnet.toubibnet.Model;
-
-import lombok.ToString;
+package com.toubibnet.toubibnet.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

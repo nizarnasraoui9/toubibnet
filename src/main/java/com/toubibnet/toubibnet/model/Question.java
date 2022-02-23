@@ -1,4 +1,4 @@
-package com.toubibnet.toubibnet.Model;
+package com.toubibnet.toubibnet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -13,12 +13,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Laboratory {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String name;
-    @OneToMany(mappedBy = "laboratory",cascade = CascadeType.ALL)
+    String title;
+    String content;
+    @ManyToOne
+    @JoinColumn(name="user_id",referencedColumnName = "id")
+    User user;
+    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonIgnore
-    List<Medecine> laboratories=new ArrayList<>();
+    List<Answer>questions=new ArrayList<>();
 }

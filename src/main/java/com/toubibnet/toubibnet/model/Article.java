@@ -1,22 +1,26 @@
-package com.toubibnet.toubibnet.Model;
+package com.toubibnet.toubibnet.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Answer {
+public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    String title;
     String description;
+    @Enumerated(EnumType.STRING)
+    Category category;
+    Date date;
     @ManyToOne
-    @JoinColumn(name="question_id",referencedColumnName = "id")
-    Question question;
+    @JoinColumn(name = "doctor_id",referencedColumnName = "id")
+    Doctor doctor;
 }

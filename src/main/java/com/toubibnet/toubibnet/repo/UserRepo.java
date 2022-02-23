@@ -1,6 +1,6 @@
-package com.toubibnet.toubibnet.Repo;
+package com.toubibnet.toubibnet.repo;
 
-import com.toubibnet.toubibnet.Model.User;
+import com.toubibnet.toubibnet.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
