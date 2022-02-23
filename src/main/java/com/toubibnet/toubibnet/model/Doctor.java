@@ -27,4 +27,7 @@ public class Doctor extends User{
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
     @JsonIgnore
     List<Article>articles=new ArrayList<>();
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    @JsonIgnore
+    List<Answer>answers=new ArrayList<>();
 }

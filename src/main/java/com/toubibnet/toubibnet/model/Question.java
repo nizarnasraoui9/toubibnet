@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,4 +26,5 @@ public class Question {
     @OneToMany(mappedBy = "question",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonIgnore
     List<Answer>questions=new ArrayList<>();
+    Date date;
 }

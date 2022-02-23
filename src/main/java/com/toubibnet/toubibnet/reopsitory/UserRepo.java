@@ -1,4 +1,4 @@
-package com.toubibnet.toubibnet.repo;
+package com.toubibnet.toubibnet.reopsitory;
 
 import com.toubibnet.toubibnet.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

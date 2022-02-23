@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -18,4 +19,8 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name="question_id",referencedColumnName = "id")
     Question question;
+    @ManyToOne
+    @JoinColumn(name="doctor_id",referencedColumnName = "id")
+    Doctor doctor;
+    Date date;
 }
