@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,6 @@ public class TherapeuticClass {
     Long id;
     String name;
     @OneToMany(mappedBy = "therapeuticClass",cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Medecine>medecines;
 }

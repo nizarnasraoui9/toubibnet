@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,10 @@ public class User {
     Integer phoneNumber;
     String password;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Appointment> appointments=new ArrayList<>();
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Question>questionList=new ArrayList<>();
 
 }

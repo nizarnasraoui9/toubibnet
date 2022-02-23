@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,6 @@ public class Question {
     @JoinColumn(name="user_id",referencedColumnName = "id")
     User user;
     @OneToMany(mappedBy = "question",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
     List<Answer>questions=new ArrayList<>();
 }

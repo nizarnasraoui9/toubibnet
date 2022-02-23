@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,9 @@ public class Doctor extends User{
     @Enumerated(EnumType.STRING)
     Governotate governotate;
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Appointment> appointmentList=new ArrayList<>();
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    @JsonIgnore
     List<Article>articles=new ArrayList<>();
 }
