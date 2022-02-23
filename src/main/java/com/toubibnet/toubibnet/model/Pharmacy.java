@@ -1,4 +1,4 @@
-package com.toubibnet.toubibnet.Model;
+package com.toubibnet.toubibnet.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +16,10 @@ public class Pharmacy {
     Long id;
     String name;
     String address;
+    @Enumerated (EnumType.STRING)
+    Status status;
     @Enumerated(EnumType.STRING)
-    Governotate governotate;
+    Governorate governorate;
 
 
 }
