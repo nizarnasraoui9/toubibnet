@@ -17,7 +17,7 @@ public class Pharmacy {
     String name;
     String address;
     @Enumerated(EnumType.STRING)
-    Governotate governotate;
+    Governorate governotate;
 
 
 }

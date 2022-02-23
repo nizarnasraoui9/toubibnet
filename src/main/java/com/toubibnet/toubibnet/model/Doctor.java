@@ -14,13 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class Doctor extends User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
     @Enumerated(EnumType.STRING)
     Speciality speciality;
     @Enumerated(EnumType.STRING)
-    Governotate governotate;
+    Governorate governotate;
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
     @JsonIgnore
     List<Appointment> appointmentList=new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.toubibnet.toubibnet.reopsitory;
+package com.toubibnet.toubibnet.repository;
 
 import org.springframework.stereotype.Repository;
 

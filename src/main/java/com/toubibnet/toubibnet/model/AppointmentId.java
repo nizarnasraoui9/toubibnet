@@ -1,12 +1,13 @@
 package com.toubibnet.toubibnet.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class AppointmentId implements Serializable {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     @Column(name="user_id")
     Long userId;
     @Column(name="doctor_id")
