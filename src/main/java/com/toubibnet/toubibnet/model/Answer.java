@@ -14,13 +14,13 @@ import java.util.Date;
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String description;
+    private Long id;
+    private String description;
     @ManyToOne
-    @JoinColumn(name="question_id",referencedColumnName = "id")
-    Question question;
+    @JoinColumn(name = "question_id", referencedColumnName = "id")
+    private Question question;
     @ManyToOne
-    @JoinColumn(name="doctor_id",referencedColumnName = "id")
-    Doctor doctor;
-    Date date;
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
+    private Doctor doctor;
+    private Date date;
 }
