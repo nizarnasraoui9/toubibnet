@@ -3,7 +3,6 @@ package com.toubibnet.toubibnet.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.List;
 import static javax.persistence.FetchType.EAGER;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
