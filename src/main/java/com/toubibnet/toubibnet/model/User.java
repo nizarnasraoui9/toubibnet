@@ -12,9 +12,6 @@ import java.util.List;
 import static javax.persistence.FetchType.EAGER;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     

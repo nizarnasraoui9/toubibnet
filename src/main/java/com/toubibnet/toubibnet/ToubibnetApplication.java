@@ -22,13 +22,7 @@ public class ToubibnetApplication {
 	CommandLineRunner run(UserRepo userRepo, DoctorRepo doctorRepo
 			, AppointementRepo appointementRepo) {
 		return args -> {
-			Appointment appointment=new Appointment();
-			User user=new User();
-			Doctor doctor=new Doctor();
-			userRepo.save(user);
-			doctorRepo.save(doctor);
-			System.out.println(appointment.getId());
-			appointementRepo.save(appointment);
+
 		};
 	}
 }
