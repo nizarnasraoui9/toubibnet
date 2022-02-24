@@ -11,6 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @SpringBootApplication
 public class ToubibnetApplication {
 
@@ -22,7 +25,13 @@ public class ToubibnetApplication {
 	CommandLineRunner run(UserRepo userRepo, DoctorRepo doctorRepo
 			, AppointementRepo appointementRepo) {
 		return args -> {
-
+			LocalDateTime date= LocalDate.now().atTime(9,30);
+			Appointment appointment=new Appointment();
+			appointment.setDate(date);
+			Doctor doctor=new Doctor();
+			appointment.setDoctor(doctor);
+			doctor.getAppointmentList().add(appointment);
+			doctorRepo.save(doctor);
 		};
 	}
 }
