@@ -28,8 +28,9 @@ public class AppointmentController {
         return this.appointmentMapper.toDtos(appointmentsHistory);
     }
     @PostMapping
-    public Appointment addAppointment(@RequestBody Appointment appointment){
-        return this.appointmentService.addAppointment(appointment);
+    public Appointment addAppointment(@RequestBody AppointmentDto appointment){
+        Appointment newAppointment=this.appointmentMapper.toBo(appointment);
+        return this.appointmentService.addAppointment(newAppointment);
     }
 
 }
