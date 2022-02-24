@@ -1,8 +1,6 @@
 package com.toubibnet.toubibnet.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,15 +8,19 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Appointment {
-    @EmbeddedId
-    AppointmentId appointmentId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     Date date;
     @ManyToOne
-    @MapsId("doctorId")
+    @JoinColumn(name="doctor_id",referencedColumnName = "id")
     Doctor doctor;
     @ManyToOne
-    @MapsId("userId")
+    @JoinColumn(name="user_id",referencedColumnName = "id")
     User user;
+
+
 }
