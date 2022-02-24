@@ -13,6 +13,9 @@ import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class User {
     
 	@Id

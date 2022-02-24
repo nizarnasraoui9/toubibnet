@@ -1,5 +1,7 @@
 package com.toubibnet.toubibnet.service;
 
+import com.toubibnet.toubibnet.model.Doctor;
+import com.toubibnet.toubibnet.model.User;
 import com.toubibnet.toubibnet.repository.AppointementRepo;
 import com.toubibnet.toubibnet.repository.DoctorRepo;
 import com.toubibnet.toubibnet.repository.UserRepo;
@@ -24,6 +26,8 @@ public class AppointmentService {
     UserRepo userRepo;
 
     public Appointment addAppointment (Appointment appointment){
+        User user=appointment.getUser();
+        Doctor doctor=appointment.getDoctor();
         Appointment newAppointment =this.appointementRepo.save(appointment);
         return null;
     }

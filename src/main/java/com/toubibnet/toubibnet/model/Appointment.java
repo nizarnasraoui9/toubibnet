@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class Appointment {
@@ -23,5 +22,10 @@ public class Appointment {
     @JoinColumn(name="user_id",referencedColumnName = "id")
     User user;
 
-
+    public Appointment(Long id, LocalDateTime date, Doctor doctor, User user) {
+        this.id = id;
+        this.date = date;
+        this.doctor = doctor;
+        this.user = user;
+    }
 }

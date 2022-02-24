@@ -25,13 +25,16 @@ public class ToubibnetApplication {
 	CommandLineRunner run(UserRepo userRepo, DoctorRepo doctorRepo
 			, AppointementRepo appointementRepo) {
 		return args -> {
-			LocalDateTime date= LocalDate.now().atTime(9,30);
-			Appointment appointment=new Appointment();
-			appointment.setDate(date);
-			Doctor doctor=new Doctor();
-			appointment.setDoctor(doctor);
-			doctor.getAppointmentList().add(appointment);
-			doctorRepo.save(doctor);
+//			LocalDateTime date= LocalDate.now().atTime(9,30);
+//			Appointment appointment=new Appointment();
+//			appointment.setDate(date);
+//			Doctor doctor=new Doctor();
+//			appointment.setDoctor(doctor);
+//			doctor.getAppointmentList().add(appointment);
+//			doctorRepo.save(doctor);
+//			User user=new User();
+//			userRepo.save(user);
+
 		};
 	}
 }
