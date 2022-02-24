@@ -19,23 +19,23 @@ public class AnswerController {
         return answerService.findAll();
     }
 
-    @GetMapping("/id")
-    public Answer findById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public Answer findById(@PathVariable Long id) {
         return answerService.findById(id);
     }
 
     @PostMapping
-    public Answer save(Answer answer) {
+    public Answer save(@RequestBody Answer answer) {
         return answerService.save(answer);
     }
 
     @PutMapping
-    public Answer update(Answer answer) {
+    public Answer update(@RequestBody Answer answer) {
         return answerService.update(answer);
     }
 
-    @DeleteMapping("/id")
-    public boolean delete(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable Long id) {
         return answerService.delete(id);
     }
 
