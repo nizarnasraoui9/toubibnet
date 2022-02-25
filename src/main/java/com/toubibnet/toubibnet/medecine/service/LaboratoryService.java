@@ -16,7 +16,7 @@ public class LaboratoryService {
     LaboratoryRepository laboratoryRepository ;
 
     public List<Laboratory> getAllLabo() {
-        List<Laboratory> listlab ;
+       /* List<Laboratory> listlab ;
          listlab = laboratoryRepository.findAll() ;
          for (Laboratory lab : listlab) {
              List<MedecineClass> listmed ;
@@ -25,7 +25,8 @@ public class LaboratoryService {
                         med.setLaboratory(null);
                     }
          }
-        return listlab ;
+        return listlab ; */
+        return laboratoryRepository.findAll() ;
     }
 
     public void createLaboratory(Laboratory laboratory) {

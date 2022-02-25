@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping ("/ApiMed")
 public class MedecineController {
@@ -15,23 +16,29 @@ public class MedecineController {
     @Autowired
     MedecineService medecineService ;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/getAll")
     public List<MedecineClass> getAllMedecine() {
         return medecineService.getAllMed() ;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/create")
-    public String createMed (@RequestBody MedecineClass medecin) {
+    public MedecineClass createMed (@RequestBody MedecineClass medecin) {
+        System.out.println("ceci post medicine");
         medecineService.createMedecine(medecin);
-        return "Create success" ;
+        System.out.println("ajout dans base success");
+        return medecin ;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/delete/{id}")
     public String deleteMed (@PathVariable("id") Long id) {
         medecineService.deleteMedecine(id) ;
         return("Delete with success") ;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PutMapping("/update")
     public MedecineClass updateMed (@RequestBody MedecineClass med)
     {
@@ -39,11 +46,13 @@ public class MedecineController {
 
     }
 
-    @GetMapping("/medecine/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/medicine/{id}")
     public MedecineClass getMedecine (@PathVariable("id") Long id ) {
         return medecineService.getMedecineById(id) ;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/med/{name}")
     public MedecineClass getMedecineByName (@PathVariable("name") String name) {
         return medecineService.getMedecineByName(name) ;

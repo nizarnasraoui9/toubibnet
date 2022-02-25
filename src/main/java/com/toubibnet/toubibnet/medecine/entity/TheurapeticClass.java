@@ -1,5 +1,9 @@
 package com.toubibnet.toubibnet.medecine.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,7 +21,9 @@ public class TheurapeticClass {
     @Column (name = "name")
     private String name ;
 
-    @OneToMany(mappedBy = "theurapetic")
+    @JsonManagedReference
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "theurapetic")
     private List<MedecineClass> medicines ;
 
     public TheurapeticClass () {
@@ -38,8 +44,8 @@ public class TheurapeticClass {
         this.name = name;
     }
 
-    public void setMedicines(List<MedecineClass> medicines_th) {
-        this.medicines = medicines_th;
+    public void setMedicines(List<MedecineClass> medicines) {
+        this.medicines = medicines;
     }
 
     public Long getId() {

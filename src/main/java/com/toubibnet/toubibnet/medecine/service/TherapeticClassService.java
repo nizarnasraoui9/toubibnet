@@ -1,6 +1,7 @@
 package com.toubibnet.toubibnet.medecine.service;
 
 
+import com.toubibnet.toubibnet.medecine.entity.MedecineClass;
 import com.toubibnet.toubibnet.medecine.entity.TheurapeticClass;
 import com.toubibnet.toubibnet.medecine.repository.TheurapeticClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,21 @@ public class TherapeticClassService {
             }
 
             public List<TheurapeticClass> getAllTherapetic() {
+               /* List<TheurapeticClass> theurapeticClasses ;
+                    theurapeticClasses = theurapeticClassRepository.findAll() ;
+                for (TheurapeticClass th: theurapeticClasses)
+                {
+                        List<MedecineClass> medicines ;
+                        medicines = th.getMedicines() ;
+
+                    for (MedecineClass med: medicines )
+                    {
+                            med.setTheurapetic(null);
+
+                    }
+
+                }
+                return theurapeticClasses ; */
                 return theurapeticClassRepository.findAll() ;
             }
 }

@@ -1,11 +1,14 @@
 package com.toubibnet.toubibnet.medecine.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "medecine_table")
@@ -23,11 +26,12 @@ public class MedecineClass {
         @Column(name = "description")
         private String description ;
 
-
+        @JsonIgnore
         @ManyToOne
         @JoinColumn(name = "laboratory_id")
         private Laboratory laboratory ;
 
+        @JsonIgnore
         @ManyToOne
         @JoinColumn(name = "therapeutic_id")
         private TheurapeticClass theurapetic ;
@@ -66,5 +70,21 @@ public class MedecineClass {
 
         public String getDescription() {
                 return description;
+        }
+
+        public Laboratory getLaboratory() {
+                return laboratory;
+        }
+
+        public void setLaboratory(Laboratory laboratory) {
+                this.laboratory = laboratory;
+        }
+
+        public TheurapeticClass getTheurapetic() {
+                return theurapetic;
+        }
+
+        public void setTheurapetic(TheurapeticClass theurapetic) {
+                this.theurapetic = theurapetic;
         }
 }

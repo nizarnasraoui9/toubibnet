@@ -1,5 +1,9 @@
 package com.toubibnet.toubibnet.medecine.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,7 +20,9 @@ public class Laboratory {
     @Column(name = "name")
     private String name ;
 
-    @OneToMany(mappedBy = "laboratory")
+    @JsonManagedReference
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "laboratory")
     private List<MedecineClass> medicines ;
 
     public Laboratory(Long id, String name, List<MedecineClass> medicines) {
