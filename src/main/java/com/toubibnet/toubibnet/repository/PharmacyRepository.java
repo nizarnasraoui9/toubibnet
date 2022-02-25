@@ -21,16 +21,4 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy,Long> {
     Optional<List<Pharmacy>> findByGovernorateAndStatusAndName(Governorate governorate, Status status, String name);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 }
