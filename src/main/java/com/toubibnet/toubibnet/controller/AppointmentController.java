@@ -12,15 +12,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/appointment")
+@CrossOrigin("http://localhost:4200")
 public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
     @Autowired
     AppointmentMapper appointmentMapper;
 
-    @GetMapping("/available/{doctorId}")
-    public List<LocalDateTime>getAvailableAppointments(@PathVariable("doctorId") Long doctorId){
-        return this.appointmentService.getAvailableAppointments(doctorId);
+    @GetMapping("/available/{doctorId}/{day}/{month}/{year}")
+    public List<LocalDateTime>getAvailableAppointments(@PathVariable("doctorId") Long doctorId
+    ,@PathVariable("day")Integer day,@PathVariable("month")Integer month
+            ,@PathVariable("year")Integer year){
+        return this.appointmentService.getAvailableAppointments(doctorId,day,month,year);
     }
     @GetMapping("/history/{doctorId}")
     public List<AppointmentDto>getAppointmentsHitory(@PathVariable("doctorId")Long doctorId){

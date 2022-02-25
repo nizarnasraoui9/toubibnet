@@ -10,6 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +22,4 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name="user_id",referencedColumnName = "id")
     User user;
-
-    public Appointment(Long id, LocalDateTime date, Doctor doctor, User user) {
-        this.id = id;
-        this.date = date;
-        this.doctor = doctor;
-        this.user = user;
-    }
 }

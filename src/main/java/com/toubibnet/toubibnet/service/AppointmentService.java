@@ -35,15 +35,23 @@ public class AppointmentService {
         List<Appointment>appointments=this.appointementRepo.findAllByDoctorId(doctorId);
         return appointments;
     }
-    public List<LocalDateTime>getAvailableAppointments(Long doctorId){
+    public List<LocalDateTime>getAvailableAppointments(Long doctorId,Integer day,Integer month,Integer year){
         List<Appointment>takenAppointments=new ArrayList<>();
         List<LocalDateTime>availableAppointments=new ArrayList<>();
         takenAppointments=this.getTakenAppointments(doctorId);
         Integer hour=8;
         while(hour<18){
-            availableAppointments.add(LocalDate.now().atTime(hour,0));
-            availableAppointments.add(LocalDate.now().atTime(hour,30));
-            hour++;
+            if(hour==12){
+                availableAppointments.add(LocalDate.of(year,month,day).atTime(hour,0));
+                hour=14;
+            }
+            else{
+                availableAppointments.add(LocalDate.of(year,month,day).atTime(hour,0));
+                availableAppointments.add(LocalDate.now().atTime(hour,30));
+                hour++;
+            }
+
+
         }
         takenAppointments.forEach((appointment -> {
             LocalDateTime date=appointment.getDate();
