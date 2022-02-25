@@ -15,6 +15,10 @@ import org.springframework.security.core.GrantedAuthority;
 @AllArgsConstructor
 @Data
 public class Role implements GrantedAuthority {
+	public static String DOCTOR="DOCTOR";
+	public static String USER="USER";	
+	public static String ADMIN="ADMIN";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
