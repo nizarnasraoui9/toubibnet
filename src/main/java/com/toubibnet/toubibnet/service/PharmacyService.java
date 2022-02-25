@@ -2,7 +2,7 @@ package com.toubibnet.toubibnet.service;
 
 import com.toubibnet.toubibnet.model.Governorate;
 import com.toubibnet.toubibnet.model.Pharmacy;
-import com.toubibnet.toubibnet.Repository.PharmacyRepository;
+import com.toubibnet.toubibnet.repository.PharmacyRepository;
 import com.toubibnet.toubibnet.exception.ResourceNotFoundException;
 import com.toubibnet.toubibnet.model.Status;
 import org.springframework.beans.factory.annotation.Autowired;
