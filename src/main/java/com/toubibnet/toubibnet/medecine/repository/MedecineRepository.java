@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MedecineRepository extends JpaRepository<MedecineClass,Long> {
 
+    MedecineClass findByName (String name)  ;
+
 }

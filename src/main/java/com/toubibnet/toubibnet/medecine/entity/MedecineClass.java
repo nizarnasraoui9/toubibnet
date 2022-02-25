@@ -6,10 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "medecineTable")
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "medecine_table")
 @Data
 public class MedecineClass {
 
@@ -25,6 +24,47 @@ public class MedecineClass {
         private String description ;
 
 
+        @ManyToOne
+        @JoinColumn(name = "laboratory_id")
+        private Laboratory laboratory ;
+
+        @ManyToOne
+        @JoinColumn(name = "therapeutic_id")
+        private TheurapeticClass theurapetic ;
 
 
+        public MedecineClass(Long id, String name, String description) {
+
+                this.id = id;
+                this.name = name;
+                this.description = description;
+        }
+
+        public MedecineClass() {
+
+        }
+
+        public void setId(Long id) {
+                this.id = id;
+        }
+
+        public void setName(String name) {
+                this.name = name;
+        }
+
+        public void setDescription(String description) {
+                this.description = description;
+        }
+
+        public Long getId() {
+                return id;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public String getDescription() {
+                return description;
+        }
 }
