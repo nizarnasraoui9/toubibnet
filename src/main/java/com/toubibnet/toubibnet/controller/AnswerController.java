@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/answer")
 @RestController
 public class AnswerController {
     @Autowired
     AnswerService answerService;
+
 
     @GetMapping
     public List<Answer> findAll() {
@@ -24,9 +25,13 @@ public class AnswerController {
         return answerService.findById(id);
     }
 
-    @PostMapping
-    public Answer save(@RequestBody Answer answer) {
-        return answerService.save(answer);
+    @GetMapping("/question/{id}")
+    public List<Answer> findByQuestion(@PathVariable Long id){
+        return answerService.findByQuestion(id);
+    }
+    @PostMapping("/question/{idQuestion}/doctor/{idDoctor}")
+    public Answer save(@RequestBody Answer answer, @PathVariable Long idQuestion, @PathVariable Long idDoctor) {
+        return answerService.save(answer, idQuestion, idDoctor);
     }
 
     @PutMapping
