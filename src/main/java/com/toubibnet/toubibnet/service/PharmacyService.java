@@ -42,6 +42,8 @@ public class PharmacyService {
 
         pharmacyToUpdate.setName(pharmacy.getName());
         pharmacyToUpdate.setAddress(pharmacy.getAddress());
+        pharmacyToUpdate.setStatus(pharmacy.getStatus());
+        pharmacyToUpdate.setPhone(pharmacy.getPhone());
         pharmacyToUpdate.setGovernorate(pharmacy.getGovernorate());
 
         return pharmacyRepository.save(pharmacyToUpdate);
