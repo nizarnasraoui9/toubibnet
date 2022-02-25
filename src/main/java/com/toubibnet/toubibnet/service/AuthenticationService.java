@@ -10,9 +10,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.toubibnet.toubibnet.model.Doctor;
+import com.toubibnet.toubibnet.model.JwtDoctorSignUpRequest;
 import com.toubibnet.toubibnet.model.JwtSignInRequest;
-import com.toubibnet.toubibnet.model.JwtSignUpRequest;
+import com.toubibnet.toubibnet.model.JwtUserSignUpRequest;
 import com.toubibnet.toubibnet.model.User;
+import com.toubibnet.toubibnet.repository.DoctorRepo;
 import com.toubibnet.toubibnet.repository.UserRepo;
 @Service
 public class AuthenticationService {
@@ -25,6 +28,10 @@ public class AuthenticationService {
 	
 	@Autowired
 	private UserRepo userRepository;
+	
+	@Autowired
+	private DoctorRepo doctorRepository;
+
 
 
 	public void authenticate(JwtSignInRequest authRequest) throws Exception {
@@ -39,14 +46,30 @@ public class AuthenticationService {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
-	public void signUp(JwtSignUpRequest authRequest) {
+	public void signUpUser(JwtUserSignUpRequest signUpRequest) {
 		User user = new User();
-		user.setEmail(authRequest.getEmail());
-		user.setFirstName(authRequest.getFirstName());
-		user.setLastName(authRequest.getLastName());
-		user.setPhoneNumber(authRequest.getPhoneNumber());
-		user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
+		user.setEmail(signUpRequest.getEmail());
+		user.setFirstName(signUpRequest.getFirstName());
+		user.setLastName(signUpRequest.getLastName());
+		user.setPhoneNumber(signUpRequest.getPhoneNumber());
+		user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 		userRepository.save(user);
 	}
+	public void signUpDoctor(JwtDoctorSignUpRequest signUpRequest) {
+		Doctor doctor = new Doctor();
+		doctor.setEmail(signUpRequest.getEmail());
+		doctor.setFirstName(signUpRequest.getFirstName());
+		doctor.setLastName(signUpRequest.getLastName());
+		doctor.setPhoneNumber(signUpRequest.getPhoneNumber());
+		doctor.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+		
+		doctor.setDescription(signUpRequest.getDescription());
+		doctor.setAddress(signUpRequest.getAddress());
+		doctor.setGovernotate(signUpRequest.getGovernorate());
+		doctor.setSpeciality(signUpRequest.getSpeciality());
+
+		doctorRepository.save(doctor);
+	}
+
 
 }

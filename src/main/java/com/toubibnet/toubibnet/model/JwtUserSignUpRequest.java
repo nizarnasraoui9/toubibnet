@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtSignUpRequest implements Serializable {
+public class JwtUserSignUpRequest implements Serializable {
 
 	private static final long serialVersionUID = 5926468583005150707L;
 	

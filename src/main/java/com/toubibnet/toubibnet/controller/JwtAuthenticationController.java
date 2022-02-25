@@ -1,7 +1,6 @@
 package com.toubibnet.toubibnet.controller;
 
 
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.toubibnet.toubibnet.config.JwtTokenUtil;
+import com.toubibnet.toubibnet.model.JwtDoctorSignUpRequest;
 import com.toubibnet.toubibnet.model.JwtResponse;
 import com.toubibnet.toubibnet.model.JwtSignInRequest;
-import com.toubibnet.toubibnet.model.JwtSignUpRequest;
-import com.toubibnet.toubibnet.model.User;
+import com.toubibnet.toubibnet.model.JwtUserSignUpRequest;
 import com.toubibnet.toubibnet.service.AuthenticationService;
-import com.toubibnet.toubibnet.service.UserService;
 
 @CrossOrigin
 @RestController
@@ -48,10 +46,18 @@ public class JwtAuthenticationController {
 		return new ResponseEntity<JwtResponse>(new JwtResponse(token,userDetails), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/auth/signup", method = RequestMethod.POST)
-	public void signUp(@RequestBody JwtSignUpRequest authenticationRequest) {
+	@RequestMapping(value = "/auth/signup/user", method = RequestMethod.POST)
+	public void signUpUser(@RequestBody JwtUserSignUpRequest authenticationRequest) {
 		
-		authenticationService.signUp(authenticationRequest);
+		authenticationService.signUpUser(authenticationRequest);
 		
 	}
+	@RequestMapping(value = "/auth/signup/doctor", method = RequestMethod.POST)
+	public void signUpDoctor(@RequestBody JwtDoctorSignUpRequest authenticationRequest) {
+		
+		authenticationService.signUpDoctor(authenticationRequest);
+		
+		
+	}
+
 }
