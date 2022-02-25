@@ -20,6 +20,7 @@ import com.toubibnet.toubibnet.model.JwtSignInRequest;
 import com.toubibnet.toubibnet.model.JwtSignUpRequest;
 import com.toubibnet.toubibnet.model.User;
 import com.toubibnet.toubibnet.service.AuthenticationService;
+import com.toubibnet.toubibnet.service.UserService;
 
 @CrossOrigin
 @RestController
@@ -33,21 +34,18 @@ public class JwtAuthenticationController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
 
 	@RequestMapping(value = "/auth/signin", method = RequestMethod.POST)
-	public ResponseEntity<ArrayList<Object>> createAuthenticationToken(@RequestBody JwtSignInRequest authenticationRequest)
+	public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtSignInRequest authenticationRequest)
 			throws Exception {
 
 		authenticationService.authenticate(authenticationRequest);
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getEmail());
-		
 		final String token = jwtTokenUtil.generateToken(userDetails);
-		ArrayList<Object> returnedData = new ArrayList<Object>();
-		returnedData.add(userDetails);
-		returnedData.add(new JwtResponse(token));
-		return new ResponseEntity<>(returnedData, HttpStatus.OK);
+		return new ResponseEntity<JwtResponse>(new JwtResponse(token,userDetails), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/auth/signup", method = RequestMethod.POST)

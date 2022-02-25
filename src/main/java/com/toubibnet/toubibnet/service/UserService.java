@@ -21,6 +21,10 @@ public class UserService {
 		return userRepo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
 	}
+	public User findUserByEmail(String email) {
+		return userRepo.findByEmail(email);
+	}
+
 	public User addUser(User user) {
 		return userRepo.save(user);	}
 	
