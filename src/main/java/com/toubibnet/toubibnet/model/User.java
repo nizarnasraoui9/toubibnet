@@ -31,15 +31,15 @@ public class User implements UserDetails {
     String email;
     Integer phoneNumber;
     String password;
-    
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonIgnore
     List<Appointment> appointments=new ArrayList<>();
-	
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonIgnore
     List<Question>questionList=new ArrayList<>();
-    
+
     @ManyToMany(fetch = EAGER)
     @JoinTable(name="user_role",
             joinColumns = @JoinColumn(name="user_id"),
