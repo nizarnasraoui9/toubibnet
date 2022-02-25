@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.toubibnet.toubibnet.config.JwtTokenUtil;
+import com.toubibnet.toubibnet.exception.UserNotFoundException;
 import com.toubibnet.toubibnet.model.JwtResponse;
 import com.toubibnet.toubibnet.model.JwtSignInRequest;
 import com.toubibnet.toubibnet.model.JwtSignUpRequest;
@@ -37,15 +38,19 @@ public class JwtAuthenticationController {
 	
 
 	@RequestMapping(value = "/auth/signin", method = RequestMethod.POST)
-	public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtSignInRequest authenticationRequest)
-			throws Exception {
+	public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtSignInRequest authenticationRequest) throws Exception{
 
 		authenticationService.authenticate(authenticationRequest);
-
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getEmail());
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		return new ResponseEntity<JwtResponse>(new JwtResponse(token,userDetails), HttpStatus.OK);
+		
+		try {
+			final UserDetails userDetails = userDetailsService
+					.loadUserByUsername(authenticationRequest.getEmail());
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			return new ResponseEntity<JwtResponse>(new JwtResponse(token,userDetails), HttpStatus.OK);
+		}catch(UserNotFoundException e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		
 	}
 	
 	@RequestMapping(value = "/auth/signup", method = RequestMethod.POST)
