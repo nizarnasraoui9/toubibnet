@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/appointment")
-@CrossOrigin("http://localhost:4200")
 public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
