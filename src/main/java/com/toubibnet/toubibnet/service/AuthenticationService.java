@@ -10,7 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.toubibnet.toubibnet.model.JwtRequest;
+import com.toubibnet.toubibnet.model.JwtSignInRequest;
+import com.toubibnet.toubibnet.model.JwtSignUpRequest;
 import com.toubibnet.toubibnet.model.User;
 import com.toubibnet.toubibnet.repository.UserRepo;
 @Service
@@ -26,7 +27,7 @@ public class AuthenticationService {
 	private UserRepo userRepository;
 
 
-	public void authenticate(JwtRequest authRequest) throws Exception {
+	public void authenticate(JwtSignInRequest authRequest) throws Exception {
 		Objects.requireNonNull(authRequest.getEmail());
 		Objects.requireNonNull(authRequest.getPassword());
 
@@ -38,10 +39,12 @@ public class AuthenticationService {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
-	public void signUp(JwtRequest authRequest) {
+	public void signUp(JwtSignUpRequest authRequest) {
 		User user = new User();
 		user.setEmail(authRequest.getEmail());
-		user.setFirstName(authRequest.getNickname());
+		user.setFirstName(authRequest.getFirstName());
+		user.setLastName(authRequest.getLastName());
+		user.setPhoneNumber(authRequest.getPhoneNumber());
 		user.setPassword(passwordEncoder.encode(authRequest.getPassword()));
 		userRepository.save(user);
 	}

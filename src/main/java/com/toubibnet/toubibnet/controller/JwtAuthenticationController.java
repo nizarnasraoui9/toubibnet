@@ -2,6 +2,7 @@ package com.toubibnet.toubibnet.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.toubibnet.toubibnet.config.JwtTokenUtil;
-import com.toubibnet.toubibnet.model.JwtRequest;
 import com.toubibnet.toubibnet.model.JwtResponse;
-import com.toubibnet.toubibnet.repository.UserRepo;
+import com.toubibnet.toubibnet.model.JwtSignInRequest;
+import com.toubibnet.toubibnet.model.JwtSignUpRequest;
 import com.toubibnet.toubibnet.service.AuthenticationService;
 
-
-@RestController
 @CrossOrigin
+@RestController
 public class JwtAuthenticationController {
 
 	@Autowired
@@ -30,11 +30,9 @@ public class JwtAuthenticationController {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	@Autowired
-	private UserRepo userRepository;
 
 	@RequestMapping(value = "/auth/signin", method = RequestMethod.POST)
-	public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
+	public JwtResponse createAuthenticationToken(@RequestBody JwtSignInRequest authenticationRequest)
 			throws Exception {
 
 		authenticationService.authenticate(authenticationRequest);
@@ -44,11 +42,11 @@ public class JwtAuthenticationController {
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
-		return new JwtResponse(token,userRepository.findByEmail(authenticationRequest.getEmail()));
+		return new JwtResponse(token);
 	}
 	
 	@RequestMapping(value = "/auth/signup", method = RequestMethod.POST)
-	public void signUp(@RequestBody JwtRequest authenticationRequest) {
+	public void signUp(@RequestBody JwtSignUpRequest authenticationRequest) {
 		
 		authenticationService.signUp(authenticationRequest);
 		
