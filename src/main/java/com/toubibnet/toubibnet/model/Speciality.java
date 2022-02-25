@@ -1,5 +1,5 @@
 package com.toubibnet.toubibnet.model;
 
 public enum Speciality {
-    pneumenologie,psychiatrie
+    pneumenologie,psychiatrie,Cardiologue,Nephrologue
 }

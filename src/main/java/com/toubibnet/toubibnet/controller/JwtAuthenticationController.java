@@ -1,6 +1,8 @@
 package com.toubibnet.toubibnet.controller;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import com.toubibnet.toubibnet.config.JwtTokenUtil;
 import com.toubibnet.toubibnet.model.JwtResponse;
 import com.toubibnet.toubibnet.model.JwtSignInRequest;
 import com.toubibnet.toubibnet.model.JwtSignUpRequest;
+import com.toubibnet.toubibnet.model.User;
 import com.toubibnet.toubibnet.service.AuthenticationService;
 
 @CrossOrigin
@@ -32,17 +35,19 @@ public class JwtAuthenticationController {
 	private UserDetailsService userDetailsService;
 
 	@RequestMapping(value = "/auth/signin", method = RequestMethod.POST)
-	public JwtResponse createAuthenticationToken(@RequestBody JwtSignInRequest authenticationRequest)
+	public ResponseEntity<ArrayList<Object>> createAuthenticationToken(@RequestBody JwtSignInRequest authenticationRequest)
 			throws Exception {
 
 		authenticationService.authenticate(authenticationRequest);
 
 		final UserDetails userDetails = userDetailsService
 				.loadUserByUsername(authenticationRequest.getEmail());
-
+		
 		final String token = jwtTokenUtil.generateToken(userDetails);
-
-		return new JwtResponse(token);
+		ArrayList<Object> returnedData = new ArrayList<Object>();
+		returnedData.add(userDetails);
+		returnedData.add(new JwtResponse(token));
+		return new ResponseEntity<>(returnedData, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/auth/signup", method = RequestMethod.POST)
