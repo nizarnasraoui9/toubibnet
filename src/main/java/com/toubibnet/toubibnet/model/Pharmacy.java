@@ -20,6 +20,8 @@ public class Pharmacy {
     Status status;
     @Enumerated(EnumType.STRING)
     Governorate governorate;
+    @Enumerated(EnumType.STRING)
+    Governorate governotate;
 
 
 }
