@@ -1,6 +1,5 @@
 package com.toubibnet.toubibnet.model;
 
-public class Laboratory {
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;

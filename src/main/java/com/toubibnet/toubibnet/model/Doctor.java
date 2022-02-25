@@ -1,6 +1,5 @@
 package com.toubibnet.toubibnet.model;
 
-public class Doctor {
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,9 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class Doctor extends User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    //    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    Long id;
     @Enumerated(EnumType.STRING)
     Speciality speciality;
     @Enumerated(EnumType.STRING)

@@ -1,7 +1,5 @@
 package com.toubibnet.toubibnet.model;
 
-public class Question {
-=======
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
