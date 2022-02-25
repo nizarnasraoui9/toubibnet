@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/article")
 public class ArticleController {
     @Autowired
@@ -27,7 +28,7 @@ public class ArticleController {
     {
         return service.getAll();
     }
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public Optional<Article> getById(@PathVariable long id)
     {
         return  service.getById(id);
@@ -39,7 +40,7 @@ public class ArticleController {
         return service.getByKeyword(keyword);
     }
     @PostMapping("/")
-    public Article insertArticle(Article article)
+    public Article insertArticle(@RequestBody Article article)
     {
         return service.insertArticle(article);
     }
@@ -48,6 +49,22 @@ public class ArticleController {
     public List<Article> getByCategory(@PathVariable Category category)
     {
         return service.getByCategory(category);
+    }
+    @GetMapping("/doctor/{id}")
+    public List<Article> getByDoctor(@PathVariable long id)
+    {
+        return service.getByDoctor(id);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteArticleById(@PathVariable long id)
+    {
+        service.deleteArticleById(id);
+    }
+    @GetMapping("/user/{id}/keyword/{keyword}")
+    public List<Article> getByDoctorByKeyword(@PathVariable long id,@PathVariable String keyword)
+    {
+        return service.getByDoctorByKeyword(id, keyword);
+        
     }
 
 }

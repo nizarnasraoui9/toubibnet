@@ -12,4 +12,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query(value = "SELECT a from Article a WHERE a.title LIKE %:keyword% OR a.description LIKE %:keyword%" )
     List<Article> findByKeyword(@Param(value = "keyword") String keyword);
     List<Article> findAllByCategory(Category category);
+    List<Article> findAllByDoctor_id(long id);
+    @Query(value = "SELECT a from Article a WHERE (a.title LIKE %:keyword% OR a.description LIKE %:keyword%) AND a.doctor.id=:id" )
+    List<Article> findByDoctorByKeyword(@Param("id") long id ,@Param("keyword") String keyword);
 }

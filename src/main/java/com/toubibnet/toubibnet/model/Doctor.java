@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+
 public class Doctor extends User{
     @Enumerated(EnumType.STRING)
     Speciality speciality;
@@ -40,7 +38,7 @@ public class Doctor extends User{
 	}
     
 	public Doctor() {
-		super();
+
 	}
 	
 	public Doctor(Speciality speciality, Governorate governotate) {

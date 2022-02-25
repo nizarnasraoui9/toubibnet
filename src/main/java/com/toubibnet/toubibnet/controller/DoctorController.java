@@ -41,15 +41,15 @@ public class DoctorController {
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor Doctor) {
-		System.out.println(Doctor.toString());
-		Doctor newDoctor = doctorService.addDoctor(Doctor);
+	public ResponseEntity<Doctor> addDoctor(@RequestBody Doctor doctor) {
+		System.out.println(doctor.toString());
+		Doctor newDoctor = doctorService.addDoctor(doctor);
 		return new ResponseEntity<>(newDoctor, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Doctor> updateDoctor(@RequestBody Doctor Doctor) {
-		Doctor updateDoctor = doctorService.updateDoctor(Doctor);
+	public ResponseEntity<Doctor> updateDoctor(@RequestBody Doctor doctor) {
+		Doctor updateDoctor = doctorService.updateDoctor(doctor);
 		return new ResponseEntity<>(updateDoctor, HttpStatus.OK);
 	}
 
