@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.model;
 
+public class Appointment {
 import lombok.*;
 
 import javax.persistence.*;

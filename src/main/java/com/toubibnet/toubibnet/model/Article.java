@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.model;
 
+public class Article {
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

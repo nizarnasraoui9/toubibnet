@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.model;
 
+public class Medecine {
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

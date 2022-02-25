@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.model;
 
+public class Answer {
 import lombok.*;
 
 import javax.persistence.*;
