@@ -81,7 +81,6 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+
 	}
-
-
 }
