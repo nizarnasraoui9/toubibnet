@@ -21,9 +21,18 @@ import static javax.persistence.FetchType.EAGER;
 @AllArgsConstructor
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
+<<<<<<< HEAD
 public class User implements UserDetails {
     
 	@Id
+=======
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class User {
+
+    @Id
+>>>>>>> 2cfe3f4601e4e251344c79397dd7cb1847cfb5ab
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String firstName;
@@ -31,15 +40,15 @@ public class User implements UserDetails {
     String email;
     Integer phoneNumber;
     String password;
-    
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonIgnore
     List<Appointment> appointments=new ArrayList<>();
-	
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonIgnore
     List<Question>questionList=new ArrayList<>();
-    
+
     @ManyToMany(fetch = EAGER)
     @JoinTable(name="user_role",
             joinColumns = @JoinColumn(name="user_id"),
