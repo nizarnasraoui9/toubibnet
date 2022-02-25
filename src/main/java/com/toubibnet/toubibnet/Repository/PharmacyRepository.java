@@ -1,4 +1,4 @@
-package com.toubibnet.toubibnet.Repository;
+package com.toubibnet.toubibnet.repository;
 
 import com.toubibnet.toubibnet.model.Governorate;
 import com.toubibnet.toubibnet.model.Status;

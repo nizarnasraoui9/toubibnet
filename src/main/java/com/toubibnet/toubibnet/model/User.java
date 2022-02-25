@@ -21,18 +21,9 @@ import static javax.persistence.FetchType.EAGER;
 @AllArgsConstructor
 @Data
 @Inheritance(strategy = InheritanceType.JOINED)
-<<<<<<< HEAD
 public class User implements UserDetails {
     
 	@Id
-=======
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class User {
-
-    @Id
->>>>>>> 2cfe3f4601e4e251344c79397dd7cb1847cfb5ab
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String firstName;
