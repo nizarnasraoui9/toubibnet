@@ -25,9 +25,14 @@ public class AppointmentController {
             ,@PathVariable("year")Integer year){
         return this.appointmentService.getAvailableAppointments(doctorId,day,month,year);
     }
+    @GetMapping("/future/{doctorId}")
+    public List<AppointmentDto>getFutureAppointments(@PathVariable("doctorId")Long doctorId){
+        List<Appointment>appointmentsHistory=this.appointmentService.getAllFutureAppointments(doctorId);
+        return this.appointmentMapper.toDtos(appointmentsHistory);
+    }
     @GetMapping("/history/{doctorId}")
-    public List<AppointmentDto>getAppointmentsHitory(@PathVariable("doctorId")Long doctorId){
-        List<Appointment>appointmentsHistory=this.appointmentService.getAllAppointments(doctorId);
+    public List<AppointmentDto>getAppointmentsHitoriy(@PathVariable("doctorId")Long doctorId){
+        List<Appointment>appointmentsHistory=this.appointmentService.getAllAppointmentsHistory(doctorId);
         return this.appointmentMapper.toDtos(appointmentsHistory);
     }
     @PostMapping

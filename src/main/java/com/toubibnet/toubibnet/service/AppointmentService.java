@@ -32,7 +32,7 @@ public class AppointmentService {
         return null;
     }
     public List<Appointment>getTakenAppointments(Long doctorId){
-        List<Appointment>appointments=this.appointementRepo.getAppointmentsByDoctorId(doctorId);
+        List<Appointment>appointments=this.appointementRepo.getFutureAppointmentsByDoctorId(doctorId);
         return appointments;
     }
     public List<LocalDateTime>getAvailableAppointments(Long doctorId,Integer day,Integer month,Integer year){
@@ -60,9 +60,13 @@ public class AppointmentService {
         return availableAppointments;
     }
 
-    public List<Appointment> getAllAppointments(Long doctorId) {
+
+    public List<Appointment> getAllFutureAppointments(Long doctorId) {
+        return this.appointementRepo.getFutureAppointmentsByDoctorId(doctorId);
+    }
+    public List<Appointment> getAllAppointmentsHistory(Long doctorId) {
         List<Appointment>appointments=this.appointementRepo.findAllByDoctorIdOrderByDateDesc(doctorId);
-        return this.appointementRepo.getAppointmentsByDoctorId(doctorId);
+        return this.appointementRepo.findAllByDoctorIdOrderByDateDesc(doctorId);
     }
 
 
