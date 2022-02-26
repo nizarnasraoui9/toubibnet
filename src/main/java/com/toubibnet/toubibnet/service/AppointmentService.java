@@ -43,7 +43,7 @@ public class AppointmentService {
         while(hour<18){
             if(hour!=12 && hour!=13){
                 availableAppointments.add(LocalDate.of(year,month,day).atTime(hour,0));
-                availableAppointments.add(LocalDate.now().atTime(hour,30));
+                availableAppointments.add(LocalDate.of(year,month,day).atTime(hour,30));
 
             }
 
