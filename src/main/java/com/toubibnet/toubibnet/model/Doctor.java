@@ -23,7 +23,7 @@ public class Doctor extends User{
     @Enumerated(EnumType.STRING)
     Speciality speciality;
     @Enumerated(EnumType.STRING)
-    Governorate governotate;
+    Governorate governorate;
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
     @JsonIgnore
     List<Appointment> appointmentList=new ArrayList<>();

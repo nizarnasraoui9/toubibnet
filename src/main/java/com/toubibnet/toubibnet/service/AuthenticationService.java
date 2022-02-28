@@ -81,7 +81,7 @@ public class AuthenticationService {
 		
 		doctor.setDescription(signUpRequest.getDescription());
 		doctor.setAddress(signUpRequest.getAddress());
-		doctor.setGovernotate(signUpRequest.getGovernorate());
+		doctor.setGovernorate(signUpRequest.getGovernorate());
 		doctor.setSpeciality(signUpRequest.getSpeciality());
 		doctor.getRoles().add(userRole);
 		doctor.getRoles().add(doctorRole);

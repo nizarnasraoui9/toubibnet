@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.toubibnet.toubibnet.exception.UserNotFoundException;
@@ -14,6 +15,9 @@ import com.toubibnet.toubibnet.repository.DoctorRepo;
 public class DoctorService {
 	@Autowired
 	DoctorRepo doctorRepo;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public List<Doctor> findAllDoctors(){
 		return this.doctorRepo.findAll();
@@ -26,6 +30,7 @@ public class DoctorService {
 		return doctorRepo.save(doctor);	}
 	
 	public Doctor updateDoctor(Doctor doctor) {
+		doctor.setPassword(passwordEncoder.encode(doctor.getPassword()));
 		return doctorRepo.save(doctor);
 	}
 	
