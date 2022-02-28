@@ -25,6 +25,10 @@ public class QuestionController {
         return questionService.findById(id);
 
     }
+    @GetMapping("/search/{mot}")
+    public List<Question>findByWord(@PathVariable(value = "mot")String mot){
+        return questionService.findByWord(mot);
+    }
 
     @PostMapping("/{id}")
     public Question save(@PathVariable(value = "id") Long id, @RequestBody Question question) {
