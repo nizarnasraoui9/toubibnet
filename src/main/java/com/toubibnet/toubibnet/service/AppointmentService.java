@@ -36,12 +36,13 @@ public class AppointmentService {
         log.info("new appointment added");
         return newAppointment;
     }
-    public List<Appointment>getTakenAppointments(Long doctorId){
+    public List<Appointment>getTakenAppointments(Long doctorId) throws ResourceNotFoundException {
+        this.checkDoctor(doctorId);
         List<Appointment>appointments=this.appointementRepo.getFutureAppointmentsByDoctorId(doctorId);
         log.info("taken appointments: "+appointments);
         return appointments;
     }
-    public List<LocalDateTime>getAvailableAppointments(Long doctorId,Integer day,Integer month,Integer year){
+    public List<LocalDateTime>getAvailableAppointments(Long doctorId,Integer day,Integer month,Integer year) throws ResourceNotFoundException {
         List<Appointment>takenAppointments;
         List<LocalDateTime>availableAppointments=new ArrayList<>();
         takenAppointments=this.getTakenAppointments(doctorId);

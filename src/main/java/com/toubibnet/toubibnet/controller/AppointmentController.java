@@ -23,7 +23,7 @@ public class AppointmentController {
     @GetMapping("/available/{doctorId}/{day}/{month}/{year}")
     public List<LocalDateTime>getAvailableAppointments(@PathVariable("doctorId") Long doctorId
     ,@PathVariable("day")Integer day,@PathVariable("month")Integer month
-            ,@PathVariable("year")Integer year){
+            ,@PathVariable("year")Integer year) throws ResourceNotFoundException {
         return this.appointmentService.getAvailableAppointments(doctorId,day,month,year);
     }
     @GetMapping("/future/{doctorId}")
