@@ -10,6 +10,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.toubibnet.toubibnet.exception.UserAlreadyExistsException;
+import com.toubibnet.toubibnet.exception.UserNotFoundException;
 import com.toubibnet.toubibnet.model.Doctor;
 import com.toubibnet.toubibnet.model.JwtDoctorSignUpRequest;
 import com.toubibnet.toubibnet.model.JwtSignInRequest;
@@ -19,6 +21,7 @@ import com.toubibnet.toubibnet.model.User;
 import com.toubibnet.toubibnet.repository.DoctorRepo;
 import com.toubibnet.toubibnet.repository.RoleRepo;
 import com.toubibnet.toubibnet.repository.UserRepo;
+
 @Service
 public class AuthenticationService {
 	
@@ -61,7 +64,8 @@ public class AuthenticationService {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
-	public void signUpUser(JwtUserSignUpRequest signUpRequest) {
+	public void signUpUser(JwtUserSignUpRequest signUpRequest)  {
+		checkIfUserExists(signUpRequest.getEmail());
 		User user = new User();
 		user.setEmail(signUpRequest.getEmail());
 		user.setFirstName(signUpRequest.getFirstName());
@@ -71,7 +75,9 @@ public class AuthenticationService {
 		user.getRoles().add(userRole);
 		userRepository.save(user);
 	}
-	public void signUpDoctor(JwtDoctorSignUpRequest signUpRequest) {
+	public void signUpDoctor(JwtDoctorSignUpRequest signUpRequest)  {
+		checkIfUserExists(signUpRequest.getEmail());
+		
 		Doctor doctor = new Doctor();
 		doctor.setEmail(signUpRequest.getEmail());
 		doctor.setFirstName(signUpRequest.getFirstName());
@@ -86,6 +92,12 @@ public class AuthenticationService {
 		doctor.getRoles().add(userRole);
 		doctor.getRoles().add(doctorRole);
 		doctorRepository.save(doctor);
+	}
+	private void checkIfUserExists(String email)  {
+		if(userRepository.findByEmail(email) != null) {
+			throw new UserAlreadyExistsException();
+		}
+
 	}
 
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.toubibnet.toubibnet.config.JwtTokenUtil;
 import com.toubibnet.toubibnet.model.JwtDoctorSignUpRequest;
+import com.toubibnet.toubibnet.exception.UserAlreadyExistsException;
 import com.toubibnet.toubibnet.exception.UserNotFoundException;
 import com.toubibnet.toubibnet.model.JwtResponse;
 import com.toubibnet.toubibnet.model.JwtSignInRequest;
@@ -76,13 +77,13 @@ public class JwtAuthenticationController {
 
 	
 	@RequestMapping(value = "/auth/signup/user", method = RequestMethod.POST)
-	public void signUpUser(@RequestBody JwtUserSignUpRequest authenticationRequest) {
+	public void signUpUser(@RequestBody JwtUserSignUpRequest authenticationRequest)  {
 		
 		authenticationService.signUpUser(authenticationRequest);
 		
 	}
 	@RequestMapping(value = "/auth/signup/doctor", method = RequestMethod.POST)
-	public void signUpDoctor(@RequestBody JwtDoctorSignUpRequest authenticationRequest) {
+	public void signUpDoctor(@RequestBody JwtDoctorSignUpRequest authenticationRequest)  {
 		
 		authenticationService.signUpDoctor(authenticationRequest);
 		
