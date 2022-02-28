@@ -3,6 +3,7 @@ package com.toubibnet.toubibnet.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.toubibnet.toubibnet.exception.UserNotFoundException;
@@ -13,6 +14,9 @@ import com.toubibnet.toubibnet.repository.UserRepo;
 public class UserService {
 	@Autowired
 	UserRepo userRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	public List<User> findAllUsers(){
 		return this.userRepo.findAll();
@@ -33,7 +37,7 @@ public class UserService {
 		registredUser.setFirstName(user.getFirstName());
 		registredUser.setLastName(user.getLastName());
 		registredUser.setEmail(user.getEmail());
-		registredUser.setPassword(user.getPassword());
+		registredUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		registredUser.setPhoneNumber(user.getPhoneNumber());
 
 		return userRepo.save(registredUser);
