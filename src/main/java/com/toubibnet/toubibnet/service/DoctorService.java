@@ -22,19 +22,19 @@ public class DoctorService {
 	public List<Doctor> findAllDoctors(){
 		return this.doctorRepo.findAll();
 	}
-	public Doctor findDoctorById(Long id) {
+	public Doctor findDoctorById(Long id) throws UserNotFoundException{
 		return doctorRepo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Doctor by id " + id + " was not found"));
 	}
 	public Doctor addDoctor(Doctor doctor) {
 		return doctorRepo.save(doctor);	}
 	
-	public Doctor updateDoctor(Doctor doctor) {
+	public Doctor updateDoctor(Doctor doctor) throws IllegalArgumentException {
 		doctor.setPassword(passwordEncoder.encode(doctor.getPassword()));
 		return doctorRepo.save(doctor);
 	}
 	
-	public void deleteDoctor(Long id){
+	public void deleteDoctor(Long id) throws IllegalArgumentException{
 		doctorRepo.deleteById(id);
     }
 }
