@@ -1,48 +1,56 @@
 package com.toubibnet.toubibnet.service;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.toubibnet.toubibnet.exception.TokenHasExpiredException;
+import com.toubibnet.toubibnet.exception.UserNotFoundException;
 import com.toubibnet.toubibnet.model.Doctor;
 import com.toubibnet.toubibnet.model.JwtDoctorSignUpRequest;
 import com.toubibnet.toubibnet.model.JwtSignInRequest;
 import com.toubibnet.toubibnet.model.JwtUserSignUpRequest;
+import com.toubibnet.toubibnet.model.PasswordReset;
 import com.toubibnet.toubibnet.model.Role;
 import com.toubibnet.toubibnet.model.User;
 import com.toubibnet.toubibnet.repository.DoctorRepo;
+import com.toubibnet.toubibnet.repository.PasswordResetRepository;
 import com.toubibnet.toubibnet.repository.RoleRepo;
 import com.toubibnet.toubibnet.repository.UserRepo;
 @Service
 public class AuthenticationService {
 	
+	private String PASSWORD_RESET_URL="http://localhost:4200/client/passwordreset/";
+	
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
 	@Autowired
 	private UserRepo userRepository;
-	
 	@Autowired
 	private DoctorRepo doctorRepository;
-	
-	private RoleRepo roleRepository;
+	@Autowired
+	private PasswordResetRepository passwordResetRepository;
+	@Autowired
+	private EmailService emailService;
+
 	
 	private Role adminRole;
 	private Role doctorRole;
 	private Role userRole;
 
+
 	@Autowired
 	public AuthenticationService(RoleRepo roleRepository) {
-		this.roleRepository=roleRepository;
 		adminRole=roleRepository.findByName(Role.ADMIN);
 		doctorRole=roleRepository.findByName(Role.DOCTOR);
 		userRole=roleRepository.findByName(Role.USER);
@@ -87,6 +95,30 @@ public class AuthenticationService {
 		doctor.getRoles().add(doctorRole);
 		doctorRepository.save(doctor);
 	}
+	
+	public void resetPassword(String email) {
+		User user=checkIfUserExists(email);
+	    String token = UUID.randomUUID().toString();
+	    PasswordReset passwordReset = new PasswordReset(user,token);
+	    passwordResetRepository.save(passwordReset);
+	    emailService.sendSimpleMessage(email, "tokenreset", this.PASSWORD_RESET_URL+token);
+	}
+	
+	private User checkIfUserExists(String email) {
+		User user =userRepository.findByEmail(email);
+		if(user==null)
+			throw new UserNotFoundException("User not found");
+		return user;
+	}
+
+	public UserDetails validateResetToken(String token) {
+		PasswordReset passwordReset= passwordResetRepository.findByToken(token);
+		System.out.println(System.currentTimeMillis());
+		if(passwordReset.getExpirationDate()<System.currentTimeMillis())
+			throw new TokenHasExpiredException();
+		return passwordReset.getUser();
+	}
+
 
 
 }
