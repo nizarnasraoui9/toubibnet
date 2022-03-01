@@ -3,6 +3,7 @@ package com.toubibnet.toubibnet.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.toubibnet.toubibnet.exception.UserNotFoundException;
@@ -14,10 +15,13 @@ public class UserService {
 	@Autowired
 	UserRepo userRepo;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	public List<User> findAllUsers(){
 		return this.userRepo.findAll();
 	}
-	public User findUserById(Long id) {
+	public User findUserById(Long id) throws UserNotFoundException{
 		return userRepo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
 	}
@@ -28,18 +32,18 @@ public class UserService {
 	public User addUser(User user) {
 		return userRepo.save(user);	}
 	
-	public User updateUser(User user) {
+	public User updateUser(User user) throws IllegalArgumentException{
 		User registredUser = findUserById(user.getId());
 		registredUser.setFirstName(user.getFirstName());
 		registredUser.setLastName(user.getLastName());
 		registredUser.setEmail(user.getEmail());
-		registredUser.setPassword(user.getPassword());
+		registredUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		registredUser.setPhoneNumber(user.getPhoneNumber());
 
 		return userRepo.save(registredUser);
 	}
 	
-	public void deleteUser(Long id){
+	public void deleteUser(Long id) throws IllegalArgumentException{
 		userRepo.deleteById(id);
     }
 }

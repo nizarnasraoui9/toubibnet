@@ -2,6 +2,8 @@ package com.toubibnet.toubibnet.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ import com.toubibnet.toubibnet.service.UserService;
 public class UserController {
 	@Autowired
 	UserService userService;
+
+	Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> getAllUsers() {
@@ -50,14 +54,24 @@ public class UserController {
 
 	@PutMapping("/update")
 	public ResponseEntity<User> updateUser(@RequestBody User User) {
-		User updateUser = userService.updateUser(User);
-		return new ResponseEntity<>(updateUser, HttpStatus.OK);
+		try {
+			User updateUser = userService.updateUser(User);
+			return new ResponseEntity<>(updateUser, HttpStatus.OK);
+		}catch(IllegalArgumentException e) {
+			logger.error(e.toString());
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
-		userService.deleteUser(id);
-		return new ResponseEntity<>(HttpStatus.OK);
+		try {
+			userService.deleteUser(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}catch(IllegalArgumentException e) {
+			logger.error(e.toString());
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 }
 
