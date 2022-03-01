@@ -16,8 +16,12 @@ public class Pharmacy {
     Long id;
     String name;
     String address;
+    String phone;
+    @Enumerated (EnumType.STRING)
+    Status status;
     @Enumerated(EnumType.STRING)
-    Governorate governotate;
+    Governorate governorate;
+
 
 
 }

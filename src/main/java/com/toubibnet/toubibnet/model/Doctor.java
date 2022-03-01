@@ -11,9 +11,15 @@ import java.util.List;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 public class Doctor extends User{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    @Column(columnDefinition="TEXT")
+    String description;
+    String address;
     @Enumerated(EnumType.STRING)
     Speciality speciality;
     @Enumerated(EnumType.STRING)
@@ -27,4 +33,6 @@ public class Doctor extends User{
     @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
     @JsonIgnore
     List<Answer>answers=new ArrayList<>();
+
+
 }

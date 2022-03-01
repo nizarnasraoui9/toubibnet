@@ -1,24 +1,25 @@
 package com.toubibnet.toubibnet.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-@Data
 public class Appointment {
-    @EmbeddedId
-    AppointmentId appointmentId;
-    Date date;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    LocalDateTime date;
     @ManyToOne
-    @MapsId("doctorId")
+    @JoinColumn(name="doctor_id",referencedColumnName = "id")
     Doctor doctor;
     @ManyToOne
-    @MapsId("userId")
+    @JoinColumn(name="user_id",referencedColumnName = "id")
     User user;
 }
