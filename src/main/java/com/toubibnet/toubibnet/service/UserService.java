@@ -21,7 +21,7 @@ public class UserService {
 	public List<User> findAllUsers(){
 		return this.userRepo.findAll();
 	}
-	public User findUserById(Long id) {
+	public User findUserById(Long id) throws UserNotFoundException{
 		return userRepo.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
 	}
@@ -32,7 +32,7 @@ public class UserService {
 	public User addUser(User user) {
 		return userRepo.save(user);	}
 	
-	public User updateUser(User user) {
+	public User updateUser(User user) throws IllegalArgumentException{
 		User registredUser = findUserById(user.getId());
 		registredUser.setFirstName(user.getFirstName());
 		registredUser.setLastName(user.getLastName());
@@ -43,7 +43,7 @@ public class UserService {
 		return userRepo.save(registredUser);
 	}
 	
-	public void deleteUser(Long id){
+	public void deleteUser(Long id) throws IllegalArgumentException{
 		userRepo.deleteById(id);
     }
 }

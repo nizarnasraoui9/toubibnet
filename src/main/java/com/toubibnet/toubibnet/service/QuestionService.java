@@ -32,9 +32,6 @@ public class QuestionService {
         return question.get();
     }
 
-    public List<Question> findByWord(String mot){
-        return questionRepository.findByWord(mot);
-    }
     public Question save(Question question, Long id) {
         Optional<User> user = userRepository.findById(id);
         if (!user.isPresent()) {

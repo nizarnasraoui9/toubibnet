@@ -2,6 +2,7 @@ package com.toubibnet.toubibnet.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,8 +21,8 @@ import static javax.persistence.FetchType.EAGER;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
+@Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements UserDetails {
     
@@ -85,5 +86,4 @@ public class User implements UserDetails {
 		return true;
 
 	}
-	
 }

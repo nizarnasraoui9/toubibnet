@@ -17,5 +17,4 @@ public interface AppointementRepo extends JpaRepository<Appointment, Long> {
 
 
 
-
 }
