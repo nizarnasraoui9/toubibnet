@@ -26,6 +26,12 @@ public class QuestionController {
 
     }
 
+    @GetMapping("/category/{category}")
+    public List<Question> findByCategory(@PathVariable(value = "category") String category) {
+        return questionService.findByCategory(category);
+
+    }
+
     @PostMapping("/{id}")
     public Question save(@PathVariable(value = "id") Long id, @RequestBody Question question) {
         return questionService.save(question, id);

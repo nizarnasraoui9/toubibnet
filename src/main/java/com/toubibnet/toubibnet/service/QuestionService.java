@@ -31,6 +31,9 @@ public class QuestionService {
         }
         return question.get();
     }
+    public List<Question> findByCategory(String category){
+        return questionRepository.findByCategory(category);
+    }
 
     public Question save(Question question, Long id) {
         Optional<User> user = userRepository.findById(id);
