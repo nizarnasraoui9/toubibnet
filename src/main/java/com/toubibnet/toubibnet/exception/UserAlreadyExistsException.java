@@ -1,6 +1,7 @@
 package com.toubibnet.toubibnet.exception;
 
 
+
 public class UserAlreadyExistsException extends RuntimeException {
 
 	/**
