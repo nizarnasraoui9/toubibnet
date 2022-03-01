@@ -33,7 +33,12 @@ public class QuestionController {
     }
     @GetMapping("/search/{mot}")
     public List<Question> findByWord(@PathVariable(value = "mot") String mot) {
-        return questionService.findByCategory(mot);
+        return questionService.findByWord(mot);
+
+    }
+    @GetMapping("/categories")
+    public List<String> findByCategories() {
+        return questionService.findCategories();
 
     }
 
