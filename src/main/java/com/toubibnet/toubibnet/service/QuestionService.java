@@ -34,7 +34,7 @@ public class QuestionService {
         }
         return question.get();
     }
-    public List<Question> findByCategory(String category){
+    public List<Question> findByCategory(Category category){
         return questionRepository.findByCategory(category);
     }
     public List<Question> findByWord(String mot){
