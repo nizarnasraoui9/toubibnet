@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.controller;
 
+import com.toubibnet.toubibnet.model.Category;
 import com.toubibnet.toubibnet.model.Question;
 import com.toubibnet.toubibnet.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,22 @@ public class QuestionController {
 
     }
 
+    @GetMapping("/category/{category}")
+    public List<Question> findByCategory(@PathVariable(value = "category") Category category) {
+        return questionService.findByCategory(category);
+
+    }
+    @GetMapping("/search/{mot}")
+    public List<Question> findByWord(@PathVariable(value = "mot") String mot) {
+        return questionService.findByWord(mot);
+
+    }
+    @GetMapping("/categories")
+    public List<String> findByCategories() {
+        return questionService.findCategories();
+
+    }
+
     @PostMapping("/{id}")
     public Question save(@PathVariable(value = "id") Long id, @RequestBody Question question) {
         return questionService.save(question, id);
@@ -41,5 +58,6 @@ public class QuestionController {
         System.err.println(id + " saif");
         return questionService.deleteById(id);
     }
+
 
 }
