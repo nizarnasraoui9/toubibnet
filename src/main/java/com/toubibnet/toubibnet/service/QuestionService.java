@@ -34,6 +34,9 @@ public class QuestionService {
     public List<Question> findByCategory(String category){
         return questionRepository.findByCategory(category);
     }
+    public List<Question> findByWord(String mot){
+        return questionRepository.findByWord(mot);
+    }
 
     public Question save(Question question, Long id) {
         Optional<User> user = userRepository.findById(id);
