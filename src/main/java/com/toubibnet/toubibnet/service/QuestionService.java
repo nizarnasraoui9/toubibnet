@@ -23,7 +23,6 @@ public class QuestionService {
     UserRepository userRepository;
 
     public List<Question> findAll() {
-        System.out.println(questionRepository.findAll());
         return questionRepository.findAll();
     }
 

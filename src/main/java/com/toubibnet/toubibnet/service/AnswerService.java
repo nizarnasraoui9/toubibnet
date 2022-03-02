@@ -54,10 +54,8 @@ public class AnswerService {
     public Answer update(Answer answer) {
         Optional<Answer> answer1 = answerRepository.findById(answer.getId());
         if (!answer1.isPresent()){
-            System.err.println("answer null");
             return new Answer();
         }
-        System.err.println(answer1);
         answer.setDoctor(answer1.get().getDoctor());
         answer.setQuestion(answer1.get().getQuestion());
         return answerRepository.save(answer);

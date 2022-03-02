@@ -3,6 +3,8 @@ package com.toubibnet.toubibnet.controller;
 import com.toubibnet.toubibnet.model.Category;
 import com.toubibnet.toubibnet.model.Question;
 import com.toubibnet.toubibnet.service.QuestionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +14,14 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/question")
 public class QuestionController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(QuestionController.class);
 
     @Autowired
     QuestionService questionService;
 
     @GetMapping
     public List<Question> findAll() {
+        LOGGER.info("getAll");
         return questionService.findAll();
     }
 
@@ -55,7 +59,6 @@ public class QuestionController {
 
     @DeleteMapping("/{id}")
     public boolean delete(@PathVariable(value = "id") Long id) {
-        System.err.println(id + " saif");
         return questionService.deleteById(id);
     }
 
