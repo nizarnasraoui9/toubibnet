@@ -3,11 +3,13 @@ package com.toubibnet.toubibnet.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,13 +62,13 @@ public class JwtAuthenticationController {
 		authenticationService.authenticate(authenticationRequest);
 		
 		try {
-			final UserDetails userDetails = userDetailsService
-					.loadUserByUsername(authenticationRequest.getEmail());
-			final String token = jwtTokenUtil.generateToken(userDetails);
-			boolean isAdmin =this.userRepository.findByEmail(userDetails.getUsername()).
+			boolean isAdmin =this.userRepository.findByEmail(authenticationRequest.getEmail()).
 			getRoles().stream().anyMatch((Role r)-> r.getName().equals(Role.ADMIN));
 			if(!isAdmin)
 				return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			final UserDetails userDetails = userDetailsService
+					.loadUserByUsername(authenticationRequest.getEmail());
+			final String token = jwtTokenUtil.generateToken(userDetails);
 			return new ResponseEntity<JwtResponse>(new JwtResponse(token,userDetails), HttpStatus.OK);
 		}catch(UserNotFoundException e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -86,7 +88,20 @@ public class JwtAuthenticationController {
 		
 		authenticationService.signUpDoctor(authenticationRequest);
 		
-		
 	}
+	
+	@RequestMapping(value = "/auth/passwordreset", method = RequestMethod.POST)
+	public void resetPassword(@RequestBody String email) {
+		System.out.println(email);
+		authenticationService.resetPassword(email);
+	}
+	
+	@RequestMapping(value = "/auth/passwordreset/{token}", method = RequestMethod.GET)
+	public ResponseEntity<JwtResponse> singInWithToken(@PathVariable String token) {
+		UserDetails userDetails=authenticationService.validateResetToken(token);
+		final String jwtToken = jwtTokenUtil.generateToken(userDetails);
+		return new ResponseEntity<JwtResponse>(new JwtResponse(token,userDetails), HttpStatus.OK);		
+	}
+
 
 }
