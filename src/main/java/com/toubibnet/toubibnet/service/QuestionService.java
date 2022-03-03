@@ -1,9 +1,9 @@
 package com.toubibnet.toubibnet.service;
 
+import com.toubibnet.toubibnet.dto.QuestionPerPageDto;
 import com.toubibnet.toubibnet.exception.ResourceNotFoundException;
 import com.toubibnet.toubibnet.model.Category;
 import com.toubibnet.toubibnet.model.Question;
-import com.toubibnet.toubibnet.model.User;
 import com.toubibnet.toubibnet.repository.QuestionRepository;
 import com.toubibnet.toubibnet.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,22 +25,27 @@ public class QuestionService {
     @Autowired
     UserRepository userRepository;
 
+    QuestionPerPageDto questionPerPageDto = new QuestionPerPageDto();
+
+
     public List<Question> findAll() {
         return questionRepository.findAll();
     }
 
-    public List<Question> findAllPerPage(Integer page, Integer size) {
+    public QuestionPerPageDto findAllPerPage(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Question> pageOfQuestion = questionRepository.findBy(pageable);
-        return pageOfQuestion.getContent();
+        Page<Question> questionPage = questionRepository.findBy(pageable);
+        questionPerPageDto.setQuestion(questionPage.getContent());
+        questionPerPageDto.setTotal(questionPage.getTotalElements());
+        return questionPerPageDto;
     }
 
-    public long findNumberOfTotalElement(Integer page, Integer size) {
+  /*  public long findNumberOfTotalElement(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Question> pageOfQuestion = questionRepository.findBy(pageable);
         return pageOfQuestion.getTotalElements();
     }
-
+*/
     public Question findById(Long id) throws ResourceNotFoundException {
 
         return questionRepository.findById(id).orElseThrow(() ->
@@ -53,34 +57,38 @@ public class QuestionService {
         return questionRepository.findByCategory(category);
     }
 
-    public List<Question> findByCategoryPerPage(Category category, Integer page, Integer size) {
+    public QuestionPerPageDto findByCategoryPerPage(Category category, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Question> pageOfQuestion = questionRepository.findByCategory(category, pageable);
-        return pageOfQuestion.getContent();
+        questionPerPageDto.setQuestion(pageOfQuestion.getContent());
+        questionPerPageDto.setTotal(pageOfQuestion.getTotalElements());
+        return questionPerPageDto;
     }
 
-    public Long findNumberOfTotalElementByCategory(Category category, Integer page, Integer size) {
+   /* public Long findNumberOfTotalElementByCategory(Category category, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Question> pageOfQuestion = questionRepository.findByCategory(category, pageable);
         return pageOfQuestion.getTotalElements();
     }
-
+*/
     public List<Question> findByWord(String mot) {
         return questionRepository.findByWord(mot);
     }
 
-    public List<Question> findByWordPerPage(String mot, Integer page, Integer size) {
+    public QuestionPerPageDto findByWordPerPage(String mot, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Question> pageOfQuestion = questionRepository.findByWord(mot, pageable);
-        return pageOfQuestion.getContent();
+        questionPerPageDto.setQuestion(pageOfQuestion.getContent());
+        questionPerPageDto.setTotal(pageOfQuestion.getTotalElements());
+        return questionPerPageDto;
     }
 
-    public Long findNumberOfElementByWord(String mot, Integer page, Integer size) {
+ /*   public Long findNumberOfElementByWord(String mot, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Question> pageOfQuestion = questionRepository.findByWord(mot, pageable);
         return pageOfQuestion.getTotalElements();
     }
-
+*/
     public List<String> findCategories() {
         return Arrays.stream(Category.values()).map(c -> c.toString()).collect(Collectors.toList());
     }
