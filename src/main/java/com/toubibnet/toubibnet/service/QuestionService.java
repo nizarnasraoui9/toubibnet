@@ -25,7 +25,8 @@ public class QuestionService {
     @Autowired
     UserRepository userRepository;
 
-    QuestionPerPageDto questionPerPageDto;
+    QuestionPerPageDto questionPerPageDto = new QuestionPerPageDto();
+
 
     public List<Question> findAll() {
         return questionRepository.findAll();

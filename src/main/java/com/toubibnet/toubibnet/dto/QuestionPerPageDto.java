@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuestionPerPageDto {
+    private Long total;
     List<Question> question;
-    Long total;
 }
