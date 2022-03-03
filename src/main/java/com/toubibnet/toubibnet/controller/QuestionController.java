@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.controller;
 
+import com.toubibnet.toubibnet.dto.QuestionPerPageDto;
 import com.toubibnet.toubibnet.exception.ResourceNotFoundException;
 import com.toubibnet.toubibnet.model.Category;
 import com.toubibnet.toubibnet.model.Question;
@@ -27,19 +28,19 @@ public class QuestionController {
     }
 
     @GetMapping(value = "/page/{page}/{size}")
-    public List<Question> findAllPerPage(@PathVariable(value = "page") Integer page,
-                                         @PathVariable(value = "size") Integer size) {
+    public QuestionPerPageDto findAllPerPage(@PathVariable(value = "page") Integer page,
+                                             @PathVariable(value = "size") Integer size) {
         LOGGER.info("getAllQuestion");
         return questionService.findAllPerPage(page, size);
     }
 
-    @GetMapping(value = "/totalelements/{page}/{size}")
+  /*  @GetMapping(value = "/totalelements/{page}/{size}")
     public Long findNumberOfTotalElement(@PathVariable(value = "page") Integer page,
                                          @PathVariable(value = "size") Integer size) {
         LOGGER.info("getAllQuestion");
         return questionService.findNumberOfTotalElement(page, size);
     }
-
+*/
     @GetMapping("/{id}")
     public Question findById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         LOGGER.info("getQuestionByid/" + id);
@@ -53,21 +54,21 @@ public class QuestionController {
     }
 
     @GetMapping("/category/{category}/page/{page}/{size}")
-    public List<Question> findByCategoryPerPage(@PathVariable(value = "category") Category category,
+    public QuestionPerPageDto findByCategoryPerPage(@PathVariable(value = "category") Category category,
                                                 @PathVariable(value = "page") Integer page,
                                                 @PathVariable(value = "size") Integer size) {
         LOGGER.info("getQuestionByCategory/" + category);
         return questionService.findByCategoryPerPage(category, page, size);
     }
 
-    @GetMapping("/totalelementsbycategory/{category}/page/{page}/{size}")
+   /* @GetMapping("/totalelementsbycategory/{category}/page/{page}/{size}")
     public Long findNumberOfTotalElementByCategory(@PathVariable(value = "category") Category category,
                                                    @PathVariable(value = "page") Integer page,
                                                    @PathVariable(value = "size") Integer size) {
         LOGGER.info("getQuestionByCategory/" + category);
         return questionService.findNumberOfTotalElementByCategory(category, page, size);
     }
-
+*/
     @GetMapping("/search/{mot}")
     public List<Question> findByWord(@PathVariable(value = "mot") String mot) {
         LOGGER.info("getQuestionByWord/" + mot);
@@ -75,21 +76,21 @@ public class QuestionController {
     }
 
     @GetMapping("/search/{mot}/page/{size}/{page}")
-    public List<Question> findByWordPerPage(@PathVariable(value = "mot") String mot,
+    public QuestionPerPageDto findByWordPerPage(@PathVariable(value = "mot") String mot,
                                             @PathVariable(value = "page") Integer page,
                                             @PathVariable(value = "size") Integer size) {
         LOGGER.info("getQuestionByWord/" + mot);
         return questionService.findByWordPerPage(mot, page, size);
     }
 
-    @GetMapping("/totalelementsbyword/{mot}/page/{size}/{page}")
+   /* @GetMapping("/totalelementsbyword/{mot}/page/{size}/{page}")
     public Long findNumberOfElementByWord(@PathVariable(value = "mot") String mot,
                                           @PathVariable(value = "page") Integer page,
                                           @PathVariable(value = "size") Integer size) {
         LOGGER.info("getQuestionByWord/" + mot);
         return questionService.findNumberOfElementByWord(mot, page, size);
     }
-
+*/
     @GetMapping("/categories")
     public List<String> findByCategories() {
         return questionService.findCategories();
