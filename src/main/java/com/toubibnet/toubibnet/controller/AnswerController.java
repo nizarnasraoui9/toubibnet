@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.controller;
 
+import com.toubibnet.toubibnet.exception.ResourceNotFoundException;
 import com.toubibnet.toubibnet.model.Answer;
 import com.toubibnet.toubibnet.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}")
-    public Answer findById(@PathVariable Long id) {
+    public Answer findById(@PathVariable Long id) throws ResourceNotFoundException {
         return answerService.findById(id);
     }
 
@@ -30,17 +31,17 @@ public class AnswerController {
         return answerService.findByQuestion(id);
     }
     @PostMapping("/question/{idQuestion}/doctor/{idDoctor}")
-    public Answer save(@RequestBody Answer answer, @PathVariable Long idQuestion, @PathVariable Long idDoctor) {
+    public Answer save(@RequestBody Answer answer, @PathVariable Long idQuestion, @PathVariable Long idDoctor) throws ResourceNotFoundException {
         return answerService.save(answer, idQuestion, idDoctor);
     }
 
     @PutMapping
-    public Answer update(@RequestBody Answer answer) {
+    public Answer update(@RequestBody Answer answer) throws ResourceNotFoundException {
         return answerService.update(answer);
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Long id) {
+    public boolean delete(@PathVariable Long id) throws ResourceNotFoundException {
         return answerService.delete(id);
     }
 
