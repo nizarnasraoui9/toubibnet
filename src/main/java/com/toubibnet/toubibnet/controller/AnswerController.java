@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.controller;
 
+import com.toubibnet.toubibnet.exception.ResourceNotFoundException;
 import com.toubibnet.toubibnet.model.Answer;
 import com.toubibnet.toubibnet.service.AnswerService;
 import org.slf4j.Logger;
@@ -25,7 +26,7 @@ public class AnswerController {
     }
 
     @GetMapping("/{id}")
-    public Answer findById(@PathVariable Long id) {
+    public Answer findById(@PathVariable Long id) throws ResourceNotFoundException {
         LOGGER.info("getAnswerById= " + id);
         return answerService.findById(id);
     }
@@ -36,19 +37,19 @@ public class AnswerController {
         return answerService.findByQuestion(id);
     }
     @PostMapping("/question/{idQuestion}/doctor/{idDoctor}")
-    public Answer save(@RequestBody Answer answer, @PathVariable Long idQuestion, @PathVariable Long idDoctor) {
+    public Answer save(@RequestBody Answer answer, @PathVariable Long idQuestion, @PathVariable Long idDoctor) throws ResourceNotFoundException {
         LOGGER.info("saveAnswerforQuestionId= " + idQuestion + " ByDoctorId=" + idDoctor + " AndAnswer=" + answer.toString());
         return answerService.save(answer, idQuestion, idDoctor);
     }
 
     @PutMapping
-    public Answer update(@RequestBody Answer answer) {
+    public Answer update(@RequestBody Answer answer) throws ResourceNotFoundException {
         LOGGER.info("UpdateAnswer= " + answer.toString());
         return answerService.update(answer);
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Long id) {
+    public boolean delete(@PathVariable Long id) throws ResourceNotFoundException {
         LOGGER.info("deleteAnswerById= " + id);
         return answerService.delete(id);
     }

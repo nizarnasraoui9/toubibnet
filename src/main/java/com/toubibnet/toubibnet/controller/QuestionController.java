@@ -1,5 +1,6 @@
 package com.toubibnet.toubibnet.controller;
 
+import com.toubibnet.toubibnet.exception.ResourceNotFoundException;
 import com.toubibnet.toubibnet.model.Category;
 import com.toubibnet.toubibnet.model.Question;
 import com.toubibnet.toubibnet.service.QuestionService;
@@ -40,7 +41,7 @@ public class QuestionController {
     }
 
     @GetMapping("/{id}")
-    public Question findById(@PathVariable(value = "id") Long id) {
+    public Question findById(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
         LOGGER.info("getQuestionByid/" + id);
         return questionService.findById(id);
     }
@@ -95,7 +96,7 @@ public class QuestionController {
     }
 
     @PostMapping("/{id}")
-    public Question save(@PathVariable(value = "id") Long id, @RequestBody Question question) {
+    public Question save(@PathVariable(value = "id") Long id, @RequestBody Question question) throws ResourceNotFoundException {
         LOGGER.info("saveQuestionByUser/" + id + " andquetionId= " + question.getId());
         return questionService.save(question, id);
     }
