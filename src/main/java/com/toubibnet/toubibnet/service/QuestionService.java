@@ -40,12 +40,7 @@ public class QuestionService {
         return questionPerPageDto;
     }
 
-  /*  public long findNumberOfTotalElement(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Question> pageOfQuestion = questionRepository.findBy(pageable);
-        return pageOfQuestion.getTotalElements();
-    }
-*/
+
     public Question findById(Long id) throws ResourceNotFoundException {
 
         return questionRepository.findById(id).orElseThrow(() ->
@@ -65,12 +60,7 @@ public class QuestionService {
         return questionPerPageDto;
     }
 
-   /* public Long findNumberOfTotalElementByCategory(Category category, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Question> pageOfQuestion = questionRepository.findByCategory(category, pageable);
-        return pageOfQuestion.getTotalElements();
-    }
-*/
+
     public List<Question> findByWord(String mot) {
         return questionRepository.findByWord(mot);
     }
@@ -83,12 +73,7 @@ public class QuestionService {
         return questionPerPageDto;
     }
 
- /*   public Long findNumberOfElementByWord(String mot, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Question> pageOfQuestion = questionRepository.findByWord(mot, pageable);
-        return pageOfQuestion.getTotalElements();
-    }
-*/
+
     public List<String> findCategories() {
         return Arrays.stream(Category.values()).map(c -> c.toString()).collect(Collectors.toList());
     }
