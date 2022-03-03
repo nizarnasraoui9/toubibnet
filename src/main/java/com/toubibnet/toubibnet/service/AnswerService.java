@@ -1,6 +1,5 @@
 package com.toubibnet.toubibnet.service;
 
-import com.toubibnet.toubibnet.exception.ResourceNotFoundException;
 import com.toubibnet.toubibnet.model.Answer;
 import com.toubibnet.toubibnet.model.Doctor;
 import com.toubibnet.toubibnet.model.Question;
@@ -31,38 +30,43 @@ public class AnswerService {
         return answerRepository.findAll();
     }
 
-    public Answer findById(Long id) throws ResourceNotFoundException {
-        return answerRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Answer not found for this id :: " + id));
-
+    public Answer findById(Long id) {
+        Optional<Answer> answer = answerRepository.findById(id);
+        if (!answer.isPresent()) {
+            return new Answer();
+        }
+        return answer.get();
     }
     public List<Answer> findByQuestion(Long id) {
-        return answerRepository.findByQuestion(id);
+        List<Answer> answer = answerRepository.findByQuestion(id);
+        return answer;
     }
 
 
-    public Answer save(Answer answer, Long idQuestion, Long idDoctor) throws ResourceNotFoundException {
-       Question question =  questionRepository.findById(idQuestion).orElseThrow(() ->
-                new ResourceNotFoundException("Question not found for this id :: " + idQuestion));
-       Doctor doctor =  doctorRepo.findById(idDoctor).orElseThrow(() ->
-                new ResourceNotFoundException("Question not found for this id :: " + idDoctor));
-        answer.setDoctor(doctor);
-        answer.setQuestion(question);
+    public Answer save(Answer answer, Long idQuestion, Long idDoctor) {
+        Optional<Question> question = questionRepository.findById(idQuestion);
+        Optional<Doctor> doctor = doctorRepo.findById(idDoctor);
+        answer.setDoctor(doctor.get());
+        answer.setQuestion(question.get());
         return answerRepository.save(answer);
     }
 
-    public Answer update(Answer answer) throws ResourceNotFoundException {
-       Answer answer1 = answerRepository.findById(answer.getId()).orElseThrow(()
-               -> new ResourceNotFoundException("Answer not Found for this id " + answer.getId() ));
-        answer.setDoctor(answer1.getDoctor());
-        answer.setQuestion(answer1.getQuestion());
+    public Answer update(Answer answer) {
+        Optional<Answer> answer1 = answerRepository.findById(answer.getId());
+        if (!answer1.isPresent()){
+            return new Answer();
+        }
+        answer.setDoctor(answer1.get().getDoctor());
+        answer.setQuestion(answer1.get().getQuestion());
         return answerRepository.save(answer);
     }
 
-    public boolean delete(Long id) throws ResourceNotFoundException {
-        Answer answer = answerRepository.findById(id).orElseThrow(()
-                -> new ResourceNotFoundException("Answer not Found for this id " + id ));
-        answerRepository.delete(answer);
+    public boolean delete(Long id) {
+        answerRepository.deleteById(id);
+        Optional<Answer> answer = answerRepository.findById(id);
+        if (answer.isPresent()) {
+            return false;
+        }
         return true;
     }
 }
