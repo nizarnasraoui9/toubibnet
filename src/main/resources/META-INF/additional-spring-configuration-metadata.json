@@ -1,0 +1,18 @@
+{"properties": [{
+  "name": "jwt.secret",
+  "type": "java.lang.String",
+  "description": "secret encryption string"
+},{
+  "name": "app.url",
+  "type": "java.lang.String",
+  "description": "app url"
+},{
+  "name": "test.email",
+  "type": "java.lang.String",
+  "description": "test email"
+},{
+  "name": "test.password",
+  "type": "java.lang.String",
+  "description": "test password"
+}
+]}
